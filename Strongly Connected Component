@@ -1,0 +1,69 @@
+// I can't tell you what it really is,
+// I can only tell you what it feels like.
+#include "bits/stdc++.h"
+using namespace std;
+
+#define int long long
+#define F first
+#define S second
+#define rep(i,a,n) for (int i = a; i <= n; ++i)
+#define fo(i, n)   for (int i = 1; i <= n; ++i)
+#define all(v)  v.begin(), v.end()
+#define pb push_back
+#define P pair < int, int > 
+#define fast  ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+#define E cout << '\n'
+const int N = 1e5 + 5;
+int vis[N];
+
+vector < int > g[N], revg[N], v;
+
+void dfs(int node) {
+	vis[node] = 1;
+	for(auto i : g[node])
+		if(!vis[i])
+			dfs(i);
+	v.push_back(node);
+}
+vector < int > let;
+void revdfs(int node) {
+	vis[node] = true;
+	let.push_back(node);
+	for(auto i : revg[node])
+		if(!vis[i])
+			revdfs(i);
+}
+inline void solve() {
+	int k, n, m, ans(0), l, r;
+	cin >> n;// number of nodes	
+	cin >> m;// number of edges
+	for(int i = 1; i <= m; ++i) {
+		cin >> l >> r;
+		g[l].push_back(r);
+		revg[r].push_back(l);
+	}
+	for(int i = 1; i <= n; ++i) {
+		if(!vis[i])
+			dfs(i);
+	}
+	memset(vis, 0, sizeof vis);
+	cout << "Nodes with strongly connected components are \n";
+	while(!v.empty()) {
+		int i = v.back();
+		if(!vis[i]) {
+			revdfs(i);
+			int ans = 0;
+			for (auto i : let) {
+			   cout << i << ' ';
+			}
+			let.clear();
+		}
+		v.pop_back();
+		cout << '\n';
+	}	
+}
+signed main(){  
+   fast;
+   solve();
+   return 0;
+}   
