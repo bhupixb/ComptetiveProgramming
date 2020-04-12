@@ -17,15 +17,15 @@ const int mod = 1e9 + 7;
 const int N = 1e5 + 5;
 
 int a[N], k, currElement, ans = 0;
-vector < P > v;
+vector<P> v;
 int h[N];
 
-void generateDivisors(int idx, long long cur) {            
+void gen(int idx, long long cur) {            
     if (idx >= sz(v))return;
     for (int i = 0; i <= v[idx].first; ++i) {
       // To prevent it from number of divisors extra calls
       if (idx + 1 < sz(v)) {
-        generateDivisors(idx+1, cur);
+        gen(idx+1, cur);
         cur *= v[idx].S;
       }
       else {
@@ -41,8 +41,8 @@ void generateDivisors(int idx, long long cur) {
     } 
 }
 
-vector < int > primes;
-vector < int > spf;
+vector <int > primes;
+vector <int > spf;
 
 void RunLinearSieve() {
   int n = N;
@@ -80,7 +80,7 @@ inline void solve() {
   cin >> n;
   v.clear();    
   findPrimefactors(n);
-  generateDivisors(0, 1);       
+  gen(0, 1);       
 }
 signed main() {
   ios_base::sync_with_stdio(0);
