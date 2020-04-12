@@ -31,13 +31,13 @@ inline void solve() {
 }
 
 signed main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    srand(time(NULL));
-    int t = 100000;
-    // cin >> t; 
-    while(t--)
-                solve();
-    return 0;
+  ios_base::sync_with_stdio(0);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  srand(time(NULL));
+  int t = 100000;
+  // cin >> t; 
+  while(t--)
+    solve();
+  return 0;
 }
