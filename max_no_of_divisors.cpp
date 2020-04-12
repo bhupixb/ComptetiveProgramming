@@ -1,3 +1,6 @@
+// a list of first few hundreds of highly composite numbers
+// http://wwwhomes.uni-bielefeld.de/achim/highly.txt
+
 #include <stdio.h>
 
 unsigned long long n, res;
