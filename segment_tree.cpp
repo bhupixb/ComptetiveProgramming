@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define P pair < int, int > 
+#define s second
+#define f first
+#define pb push_back
+#define all(v)  v.begin(), v.end()
+#define rep(i,a,n)  for(int i = a; i <= n; ++i)
+#define lb(v, x)  lower_bound(all(v), x) - v.begin()
+#define up(v, x)  upper_bound(all(v), x) - v.begin()
+#define fo(i, n)   for (int i = 1; i <= n; ++i)
+
+const int N = 3e5 + 5;
+int a[N];
+class seg_tree{
+		public:
+		int tree[N<<2];
+		void build(int l, int r, int node){
+		    if(l == r){
+		        tree[node] = a[l];
+		        return ;
+		    }
+		    int mid = l + r >> 1, lc = node + node, rc = 1 + lc;
+		    build(l, mid, lc);  
+		    		 build(mid + 1, r, rc);
+		    tree[node] = tree[lc] + tree[rc];		
+		}
+		int query(int l, int r, int ql, int qr, int node){
+		    if(qr < l || r < ql)
+		        return 0;
+		    if(ql <= l and r <= qr){
+		    	return tree[node];
+		    }
+		    int mid = l + r >> 1, lc = node + node, rc = 1 + lc;
+		    return (query(l, mid, ql, qr, lc) + query(mid + 1, r, ql, qr, rc));
+		}
+		void update(int l, int r, int pos, int val, int node) {
+			if(pos < l || r < pos)
+				return;
+			if(l == r and l == pos) {
+				tree[node] = val;
+				return;
+			}
+			int mid = l + r >> 1, lc = node + node, rc = 1 + lc;
+		  update(l, mid, pos, val, lc);
+		    		update(mid + 1, r, pos, val, rc);
+		  tree[node] = tree[lc] + tree[rc];
+		}
+};
+int main(){
+    ios_base::sync_with_stdio(NULL);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    seg_tree obj;
+   	int n, q, l, r, k;
+   	cin >> n;
+   	fo(i, n)
+   		cin >> a[i];
+   
+    obj.build(1, n, 1);
+
+
+
+
+
+
+
+
+    return 0;
+}
