@@ -26,8 +26,8 @@ struct Hash {
     for (int i = 1; i <= N; ++i) {
       pre[i].F = mul(pre[i-1].F, b1);
       pre[i].S = mul(pre[i-1].S, b2);
-      cur1 = add(mul(cur1, b1), (s[i] - 'a'));
-      cur2 = add(mul(cur2, b2), (s[i] - 'a'));
+      cur1 = add(mul(cur1, b1), (s[i] - 'a' + 1));
+      cur2 = add(mul(cur2, b2), (s[i] - 'a' + 1));
       H[i].F = cur1, H[i].S = cur2;
     }   
   }
