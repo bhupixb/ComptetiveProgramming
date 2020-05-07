@@ -4,8 +4,8 @@ template<typename T>
 void manacher(const T &s) {
   int n = s.size();
   res.assign(2, vector<int>(n));
-  // let l = res[1][i] - 1, here range(i - l, i + l) is a resindrome
-  // let l = res[0][i], here range(i - l, i + l - 1) if valid then is resindrome 
+  // let l = res[1][i] - 1, here range(i - l, i + l) is a palindrome
+  // let l = res[0][i], here range(i - l, i + l - 1) if valid then is palindrome 
   for (int i = 0, l = 0, r = -1; i < n; i++) {
     int k = (i > r) ? 1 : min(res[1][l + r - i], r - i + 1);
     while (0 <= i - k && i + k < n && s[i - k] == s[i + k]) {
