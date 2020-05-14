@@ -1,33 +1,33 @@
 #!/bin/bash
-mx=1000
 i=1
-g++ -std=c++11  gen.cpp -o in0 && ulimit -s 262144 && ulimit -v 1048576
-
-g++ -std=c++11  -W -O2 1.cpp -o out11 && ulimit -s 262144 && ulimit -v 1048576
-
-g++ -std=c++11  -W -O2 brute.cpp -o out12 && ulimit -s 262144 && ulimit -v 1048576
-
-while [ $i -gt 0 ]
+g++ -std=c++17 gen.cpp -o generator -O2
+g++ -std=c++17 1.cpp -o original -O2
+g++ -std=c++17 brute.cpp -o brute -O2
+mx=10000
+while [ $i -le $mx ]
 do
-	echo "#$i"
-	# cat in
-	./in0 > in
-	./out11 < in > out1 
-	./out12 < in > out2	
-	diff -w out1 out2 > temp || break
-	cat out2>output.txt
-	# printf " \n " >> output.txt
+	# Generate input
+	./generator > input1.txt
+	./original < input1.txt > original_output.txt
+	./brute < input1.txt > brute_output.txt
+	# diff -w original_output.txt brute_output.txt || break
+  if diff --brief --ignore-space-change original_output.txt brute_output.txt; then
+    echo \#$i:[1m[32m$test_case Accepted[0m       
+	else
+		echo [1m[31mSample test \#$test_case: Wrong Answer[0m 
+		break
+	fi
+
 	i=$((i+1))
 done
-# if [ $i != 1001 ]
-# then
-	# clear
-	echo "Failed"
-	cat in > input.txt
+# echo "I is $i"
+if [ $i != $mx ]
+then
+	cat input1.txt > input.txt
 	echo -n "Origi = " > output.txt
-	cat out1 >> output.txt
+	cat original_output.txt >> output.txt
 	echo "" >> output.txt
 	echo -n "brute = "	>> output.txt
-	cat out2 >> output.txt
+	cat brute_output.txt >> output.txt
 	echo ""
-# fi
+fi
