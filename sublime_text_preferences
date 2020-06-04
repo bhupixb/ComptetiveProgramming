@@ -1,0 +1,23 @@
+{
+	"auto_complete": true,
+	"auto_save_on_focus_lost": true,
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"font_face": "Source Code Pro Medium",
+	"font_size": 11,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"line_numbers": true,
+	"material_theme_accent_graphite": true,
+	"material_theme_small_statusbar": true,
+	"material_theme_small_tab": true,
+	"material_theme_tabs_autowidth": true,
+	"tab_size": 4,
+	"theme": "Adaptive.sublime-theme",
+	"trim_trailing_white_space_on_save": true,
+	"vintage_lines.force_mode": true,
+	"word_wrap": true
+}
+
