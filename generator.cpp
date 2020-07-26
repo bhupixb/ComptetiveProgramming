@@ -1,10 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <chrono>
-#include <random>
-#include <algorithm>
-#include <cassert>
-#include <set>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define int long long
@@ -17,10 +11,8 @@ int32_t permutation[N];
 
 mt19937 rng(accuracy);
 
-int rand(int l, int r){  
-  int out = rng() % (r - l + 1) + l;
-  return out >= l ? out : out + r - l + 1; 
-  // uniform_int_distribution<int> ludo(l, r); return ludo(rng);
+int rand(int l, int r){
+  uniform_int_distribution<int> ludo(l, r); return ludo(rng);
 }
 
 const int inf = 1LL << 31;
@@ -29,13 +21,13 @@ using pii = pair<int,int>;
 
 namespace generator {
   string gen_string(int len = 0, bool upperCase = false, int l = 1, int r = 26) {
-    assert(len >= 0 && len <= 5e6);    
+    assert(len >= 0 && len <= 5e6);
     string str(len, (upperCase ? 'A' : 'a'));
     for (char &ch: str) {
       ch += rand(l, r) - 1;
     }
     return str;
-  }  
+  }
   vector<int> gen_array(int len = 0, int minRange = 0, int maxRange = inf){
    assert(len >= 0 and len <= 5e6);
     vector<int> a(len);
@@ -44,27 +36,28 @@ namespace generator {
   }
   vector<pair<int, int>> gen_tree(int n = 0){
     assert(n >= 0);
-    vector<pii> res(n ? n - 1 : 0);    
-    if (rng() % 5 == 0) { // bamboo like tree
+    vector<pii> res(n ? n - 1 : 0);
+    // if you like to have bamboo like tree or star like tree uncomment below 8 lines
+    /*if (rng() % 5 == 0) { // bamboo like tree
       for (int i = 1; i < n; ++i) res[i-1] = {i, i + 1};
       return res;
     }
     if (rng() % 7 == 0) { // star tree
       for (int i = 2; i <= n; ++i) res[i-2] = {1, i};
       return res;
-    }
+    }*/
     iota(permutation, permutation + 1 + n, 0);
     shuffle(permutation + 1, permutation + 1 + n, rng);
     for(int i = 2; i <= n; ++i){
-      int u = i, v = rand(1 , i-1);      
+      int u = i, v = rand(1 , i-1);
       u = permutation[u], v = permutation[v];
       res[i-2] = minmax(u, v); // u < v, just for convenience while debugging
     }
     shuffle(res.begin() , res.end() , rng);
     return res;
   }
-  vector<pair<int, int>> simple_graph(int n = 0, int m = 0){
-    assert(n > 0 && m >= n);
+  vector<pair<int, int>> simple_graph(int n = 0, int m = 0) {
+    assert(n > 0 && m >= n - 1);
     int max_edges = n * (n - 1) / 2;
     assert(m <= max_edges);
     vector<pii> res = gen_tree(n);
@@ -84,22 +77,38 @@ namespace generator {
 
 using namespace generator;
 
-#define SINGLE_TEST // comment this line if test cases not required
-const int max_tests = 10;
+template<typename T = int>
+ostream& operator<< (ostream &other, const vector<T> &v) {
+    for (const T &x: v) other << x << ' ';
+    other << '\n';
+    return other;
+}
+
+ostream& operator<< (ostream &other, const vector<pair<int,int>> &v) {
+    for (const auto &x: v) other << x.first << ' ' << x.second <<'\n';
+    return other;
+}
+
+// comment the just below line if test cases required
+#define SINGLE_TEST
+const int max_tests = 5;
 
 // complete this function according to the requirements
 void generate_test() {
-  
+  const int n_min = 50;
+  const int n_max = 100;
+
 }
 
 signed main() {
-  srand(accuracy);  
+  srand(accuracy);
   int t = 1;
-  #ifndef SINGLE_TEST 
+  #ifndef SINGLE_TEST
     t = rand(1, max_tests), cout << t << '\n';
   #endif
   while (t--) {
     generate_test();
   }
 }
+
 
