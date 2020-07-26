@@ -7,7 +7,7 @@ const int N = 1e5 + 6;
 int up[N][18], in[N], out[N];
 vector<int> g[N];
 class LCA {
-  int t = 0, out[N], n;
+  int t = 0, n;
 public:
   LCA() {
     memset(up, 0, sizeof up);
